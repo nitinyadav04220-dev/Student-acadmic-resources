@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Campus Exchange: a student-run marketplace where Lovely Professional University students buy, sell and donate books, drafters, lab coats and kits.">
+    <title>LPU Campus Exchange | Student Resource Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <!-- TOP UTILITY BAR -->
+    <div class="topbar">
+        <div class="container topbar-inner">
+            <span>Lovely Professional University · Phagwara, Punjab</span>
+            <nav aria-label="LPU quick access">
+                <a href="https://ums.lpu.in/lpuums/" target="_blank" rel="noopener">UMS Login</a>
+                <a href="https://play.google.com/store/apps/details?id=ums.lovely.university" target="_blank" rel="noopener">LPU Touch</a>
+                <a href="https://happenings.lpu.in/" target="_blank" rel="noopener">Happenings</a>
+                <a href="https://www.lpu.in/contact-us/contact-us.php" target="_blank" rel="noopener">Contact</a>
+                <a href="https://www.lpu.in/" target="_blank" rel="noopener">lpu.in ↗</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="header">
+        <nav class="navbar container">
+            <a href="#" class="logo">
+                <span class="logo-icon">LPU</span>
+                <span>Campus<span class="logo-highlight">Exchange</span><small>Lovely Professional University</small></span>
+            </a>
+            <div class="nav-links">
+                <a href="#browse">Browse Resources</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#lpu-links">LPU Links</a>
+                <a href="#campus">Campus</a>
+            </div>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <span id="themeIcon">🌙</span>
+                </button>
+                <button type="button" class="btn btn-outline nav-auth-btn" id="authBtn">Login / Sign Up</button>
+                <div class="nav-user-area hidden" id="userArea">
+                    <span class="user-indicator" id="userGreeting" title="Logged-in account">
+                        <span class="user-avatar-icon">👤</span>
+                        <span class="user-name-text" id="userNameText"></span>
+                    </span>
+                    <button type="button" class="btn btn-outline nav-logout-btn" id="logoutBtn">Logout</button>
+                </div>
+                <a href="#post-item" class="btn btn-primary nav-post-btn">+ Post Your Item</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="hero-text">
+                    <span class="eyebrow">🎓 FOR LPU STUDENTS, BY LPU STUDENTS</span>
+                    <h1>Your next semester<br>starts <span class="highlight">smarter.</span></h1>
+                    <p>Buy, sell and exchange academic essentials with fellow students. Save money, share resources and make campus life easier.</p>
+                    <div class="hero-buttons">
+                        <a href="#browse" class="btn btn-primary">Explore Resources →</a>
+                        <a href="#post-item" class="btn btn-outline">List an Item</a>
+                    </div>
+                    <div class="hero-trust">
+                        <span>✓ Student-friendly prices</span>
+                        <span>✓ LPU student community</span>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card">
+                        <span class="hero-card-icon">📚</span>
+                        <div>
+                            <strong>Share Knowledge</strong>
+                            <p>Pass it forward.</p>
+                        </div>
+                    </div>
+                    <div class="hero-card hero-card-offset">
+                        <span class="hero-card-icon">💰</span>
+                        <div>
+                            <strong>Save More</strong>
+                            <p>Affordable academic essentials.</p>
+                        </div>
+                    </div>
+                    <div class="hero-decoration">✳</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BROWSE SECTION -->
+        <section class="browse-section section-padding" id="browse">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">THE STUDENT MARKETPLACE</span>
+                        <h2>Explore resources</h2>
+                        <p>Find everything you need for your next semester.</p>
+                    </div>
+                    <span class="listing-count" id="listingCount">0 items found</span>
+                </div>
+
+                <!-- CATEGORY FILTERS -->
+                <div class="category-list" id="categoryFilters">
+                    <button class="category-btn active" data-category="All">All Items</button>
+                    <button class="category-btn" data-category="Saved" id="savedFilterBtn">Saved</button>
+                    <button class="category-btn" data-category="Textbooks">📚 Textbooks</button>
+                    <button class="category-btn" data-category="Engineering Drafter">📐 Drafter</button>
+                    <button class="category-btn" data-category="Lab Coat">🥼 Lab Coat</button>
+                    <button class="category-btn" data-category="Arduino Kits">🔌 Arduino Kits</button>
+                    <button class="category-btn" data-category="Scientific Calculator">🧮 Calculator</button>
+                </div>
+
+                <!-- FILTER PANEL -->
+                <div class="filter-panel">
+                    <div class="search-box">
+                        <span>⌕</span>
+                        <input type="search" id="searchInput" placeholder="Search books, equipment, resources...">
+                    </div>
+                    <select id="semesterFilter" aria-label="Filter by semester">
+                        <option value="All">All Semesters</option>
+                        <option value="1st">1st Semester</option>
+                        <option value="2nd">2nd Semester</option>
+                        <option value="3rd">3rd Semester</option>
+                        <option value="4th">4th Semester</option>
+                        <option value="5th">5th Semester</option>
+                        <option value="6th">6th Semester</option>
+                        <option value="7th">7th Semester</option>
+                        <option value="8th">8th Semester</option>
+                    </select>
+                    <select id="branchFilter" aria-label="Filter by branch">
+                        <option value="All">All Branches</option>
+                        <option value="CSE">CSE</option>
+                        <option value="ME">ME</option>
+                        <option value="ECE">ECE</option>
+                        <option value="Civil">Civil</option>
+                    </select>
+                    <select id="priceFilter" aria-label="Filter by price">
+                        <option value="All">All Prices</option>
+                        <option value="Free">Free / Donation</option>
+                        <option value="Under300">Under ₹300</option>
+                    </select>
+                    <select id="sortFilter" aria-label="Sort listings">
+                        <option value="default">Sort: Default</option>
+                        <option value="low-high">Price: Low to High</option>
+                        <option value="high-low">Price: High to Low</option>
+                    </select>
+                    <button class="reset-btn" id="resetFilters">Reset</button>
+                </div>
+
+                <!-- DYNAMIC PRODUCT LIST -->
+                <div class="product-grid" id="productGrid"></div>
+                <div class="empty-state hidden" id="emptyState">
+                    <span>🔍</span>
+                    <h3>No resources found</h3>
+                    <p>Try changing your filters or search for something else.</p>
+                    <button class="btn btn-primary" id="clearSearch">Clear Filters</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- HOW IT WORKS -->
+        <section class="how-section section-padding" id="how-it-works">
+            <div class="container">
+                <div class="section-heading centered">
+                    <span class="eyebrow">SIMPLE & STUDENT FRIENDLY</span>
+                    <h2>How it works</h2>
+                    <p>Exchange academic resources in three simple steps.</p>
+                </div>
+                <div class="steps-grid">
+                    <article class="step-card">
+                        <span class="step-number">01</span>
+                        <div class="step-icon">🔎</div>
+                        <h3>Find Resources</h3>
+                        <p>Browse academic items using semester, branch and price filters.</p>
+                    </article>
+                    <article class="step-card">
+                        <span class="step-number">02</span>
+                        <div class="step-icon">🤝</div>
+                        <h3>Connect with Sellers</h3>
+                        <p>Check item conditions and contact students directly.</p>
+                    </article>
+                    <article class="step-card">
+                        <span class="step-number">03</span>
+                        <div class="step-icon">📦</div>
+                        <h3>Exchange & Save</h3>
+                        <p>Arrange an exchange and give your academic resources a new life.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- POST ITEM SECTION -->
+        <section class="post-section section-padding" id="post-item">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">GIVE YOUR ITEMS A SECOND LIFE</span>
+                        <h2>Post your item</h2>
+                        <p>Have unused academic resources? Help another student.</p>
+                    </div>
+                </div>
+                <div class="form-wrapper">
+                    <form id="itemForm">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="itemName">Item Name *</label>
+                                <input type="text" id="itemName" placeholder="e.g. Engineering Mathematics Textbook" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemCategory">Category *</label>
+                                <select id="itemCategory" required>
+                                    <option value="">Select Category</option>
+                                    <option value="Textbooks">Textbooks</option>
+                                    <option value="Engineering Drafter">Engineering Drafter</option>
+                                    <option value="Lab Coat">Lab Coat</option>
+                                    <option value="Arduino Kits">Arduino Kits</option>
+                                    <option value="Scientific Calculator">Scientific Calculator</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemPrice">Price (₹) *</label>
+                                <input type="number" id="itemPrice" min="0" placeholder="Enter price (0 for free)" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemSemester">Semester *</label>
+                                <select id="itemSemester" required>
+                                    <option value="">Select Semester</option>
+                                    <option value="1st">1st Semester</option>
+                                    <option value="2nd">2nd Semester</option>
+                                    <option value="3rd">3rd Semester</option>
+                                    <option value="4th">4th Semester</option>
+                                    <option value="5th">5th Semester</option>
+                                    <option value="6th">6th Semester</option>
+                                    <option value="7th">7th Semester</option>
+                                    <option value="8th">8th Semester</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemBranch">Branch *</label>
+                                <select id="itemBranch" required>
+                                    <option value="">Select Branch</option>
+                                    <option value="CSE">CSE</option>
+                                    <option value="ME">ME</option>
+                                    <option value="ECE">ECE</option>
+                                    <option value="Civil">Civil</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="itemCondition">Item Condition *</label>
+                                <select id="itemCondition" required>
+                                    <option value="">Select Condition</option>
+                                    <option value="Brand New">Brand New</option>
+                                    <option value="Gently Used">Gently Used</option>
+                                    <option value="Marked with Notes">Marked with Notes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="sellerName">Seller Name *</label>
+                                <input type="text" id="sellerName" placeholder="Your name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="sellerContact">Contact Number</label>
+                                <input type="tel" id="sellerContact" placeholder="10-digit mobile number (optional)" pattern="[6-9][0-9]{9}" maxlength="10">
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="itemDescription">Description</label>
+                                <textarea id="itemDescription" rows="4" placeholder="Describe your item, its condition and any additional details..."></textarea>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Item Photograph</label>
+                                <label for="itemImage" class="upload-box">
+                                    <span>📷</span>
+                                    <strong>Click to upload an image</strong>
+                                    <small>PNG, JPG or WEBP</small>
+                                </label>
+                                <input type="file" id="itemImage" accept="image/png,image/jpeg,image/webp" hidden>
+                                <div class="image-preview hidden" id="imagePreview">
+                                    <img id="previewImg" src="" alt="Selected item preview">
+                                    <button type="button" id="removeImage">Remove Image</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary submit-btn">Publish Your Listing →</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- CAMPUS -->
+        <section class="campus-section section-padding" id="campus">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">LIFE AT LPU</span>
+                        <h2>One campus, one community</h2>
+                        <p>Share resources with students across 150+ programmes.</p>
+                    </div>
+                </div>
+                <div class="campus-grid">
+                    <article class="campus-card">
+                        <img src="https://www.lpu.in/_next/image?url=%2Fimages%2Fhomepage%2Fcampus-experience%2F360degree-view.webp&w=1920&q=75" alt="LPU campus" loading="lazy" onerror="this.remove()">
+                        <div>
+                            <h3>Take a 360° campus tour</h3>
+                            <p>Classrooms, libraries, sports complexes, hostels and food courts.</p>
+                            <a href="https://iviewd.com/lpu2/" target="_blank" rel="noopener">Start tour →</a>
+                        </div>
+                    </article>
+                    <article class="campus-card">
+                        <img src="https://www.lpu.in/_next/image?url=%2Fimages%2Fhomepage%2Fholistic-learning%2Fedurev.webp&w=1920&q=75" alt="EduRev at LPU" loading="lazy" onerror="this.remove()">
+                        <div>
+                            <h3>EduRev learning ecosystem</h3>
+                            <p>AI-personalised, gamified learning that connects classrooms to careers.</p>
+                            <a href="https://www.lpu.in/edurev/" target="_blank" rel="noopener">Know more →</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- LPU QUICK LINKS -->
+        <section class="quick-section section-padding" id="lpu-links">
+            <div class="container">
+                <div class="section-heading">
+                    <div>
+                        <span class="eyebrow">OFFICIAL LPU RESOURCES</span>
+                        <h2>Quick links for LPU students</h2>
+                        <p>The portals you already use, one click away from Campus Exchange.</p>
+                    </div>
+                </div>
+                <div class="quick-grid">
+                    <a class="quick-card" href="https://ums.lpu.in/lpuums/" target="_blank" rel="noopener"><span>🖥️</span><strong>UMS</strong><small>Attendance, results, fees, announcements</small></a>
+                    <a class="quick-card" href="https://play.google.com/store/apps/details?id=ums.lovely.university" target="_blank" rel="noopener"><span>📱</span><strong>LPU Touch</strong><small>UMS on your phone, 24x7</small></a>
+                    <a class="quick-card" href="https://www.lpu.in/academics/libraries.php" target="_blank" rel="noopener"><span>📚</span><strong>Libraries</strong><small>Books and study spaces</small></a>
+                    <a class="quick-card" href="https://www.lpu.in/academics/calendar-regular-programmes.php" target="_blank" rel="noopener"><span>🗓️</span><strong>Academic Calendar</strong><small>Terms, exams, holidays</small></a>
+                    <a class="quick-card" href="https://www.lpu.in/placements.php" target="_blank" rel="noopener"><span>💼</span><strong>Placements</strong><small>Recruiters and drives</small></a>
+                    <a class="quick-card" href="https://webapp.lpu.in/payment/" target="_blank" rel="noopener"><span>💳</span><strong>Fee Payment</strong><small>Online fee deposit</small></a>
+                </div>
+                <ul class="rank-strip">
+                    <li><b>A++</b>NAAC grade (3.68)</li>
+                    <li><b>31st</b>NIRF 2025, all universities</li>
+                    <li><b>4th</b>WURI ranking, India</li>
+                    <li><b>2nd</b>THE Impact Rankings 2025, India</li>
+                </ul>
+                <p class="rank-note">Source: <a href="https://www.lpu.in/" target="_blank" rel="noopener">lpu.in</a>. Check the site for the latest figures.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- ITEM DETAIL / SELLER MODAL -->
+    <div class="modal-overlay hidden" id="itemModal">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" id="closeModal" aria-label="Close modal">&times;</button>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- AUTH MODAL -->
+    <div class="modal-overlay hidden" id="authModal">
+        <div class="modal-content auth-modal-content" role="dialog" aria-modal="true" aria-labelledby="authModalTitle">
+            <button class="modal-close" id="closeAuthModal" aria-label="Close modal">&times;</button>
+            <div class="auth-header">
+                <span class="eyebrow">CAMPUS EXCHANGE ACCOUNT</span>
+                <h2 id="authModalTitle">Welcome to CampusExchange</h2>
+            </div>
+            <div class="auth-tabs" role="tablist">
+                <button type="button" class="auth-tab-btn active" id="loginTabBtn" role="tab" aria-selected="true" data-tab="login">Login</button>
+                <button type="button" class="auth-tab-btn" id="signupTabBtn" role="tab" aria-selected="false" data-tab="signup">Sign Up</button>
+            </div>
+            <div class="auth-error-banner hidden" id="authError" role="alert"></div>
+
+            <!-- LOGIN TAB -->
+            <form id="loginForm" class="auth-form" novalidate>
+                <div class="form-group">
+                    <label for="loginEmail">Email Address *</label>
+                    <input type="email" id="loginEmail" placeholder="e.g. yourname@lpu.in" required autocomplete="email">
+                    <span class="input-error" id="loginEmailError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password *</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password">
+                    <span class="input-error" id="loginPasswordError"></span>
+                </div>
+                <button type="submit" class="btn btn-primary auth-submit-btn" id="loginSubmitBtn">Login →</button>
+                <p class="auth-switch-text">
+                    Don't have an account? <button type="button" class="auth-link-btn" id="switchToSignup">Sign up here</button>
+                </p>
+            </form>
+
+            <!-- SIGN UP TAB -->
+            <form id="signupForm" class="auth-form hidden" novalidate>
+                <div class="form-group">
+                    <label for="signupName">Full Name *</label>
+                    <input type="text" id="signupName" placeholder="e.g. Rahul Sharma" required autocomplete="name">
+                    <span class="input-error" id="signupNameError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email Address *</label>
+                    <input type="email" id="signupEmail" placeholder="e.g. yourname@lpu.in" required autocomplete="email">
+                    <span class="input-error" id="signupEmailError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password *</label>
+                    <input type="password" id="signupPassword" placeholder="Minimum 6 characters" required autocomplete="new-password">
+                    <span class="input-error" id="signupPasswordError"></span>
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password *</label>
+                    <input type="password" id="signupConfirmPassword" placeholder="Re-enter your password" required autocomplete="new-password">
+                    <span class="input-error" id="signupConfirmPasswordError"></span>
+                </div>
+                <button type="submit" class="btn btn-primary auth-submit-btn" id="signupSubmitBtn">Create Account →</button>
+                <p class="auth-switch-text">
+                    Already have an account? <button type="button" class="auth-link-btn" id="switchToLogin">Login here</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- NOTIFICATION -->
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#" class="logo footer-logo">
+                        <span class="logo-icon">LPU</span>
+                        <span>Campus<span class="logo-highlight">Exchange</span><small>Lovely Professional University</small></span>
+                    </a>
+                    <address>Jalandhar-Delhi, G.T. Road,<br>Phagwara, Punjab (INDIA) - 144411<br>Tel: +91-1824-517000, +91-1824-404404</address>
+                    <p>Making academic resources accessible, affordable and sustainable.</p>
+                </div>
+                <div>
+                    <h4>Campus Exchange</h4>
+                    <ul>
+                        <li><a href="#browse">Browse Resources</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#post-item">Post Your Item</a></li>
+                        <li><a href="#lpu-links">LPU Quick Links</a></li>
+                        <li><a href="https://wa.me/910000000000" id="footerWhatsAppLink" class="official-whatsapp-link" target="_blank" rel="noopener">WhatsApp Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Student Services</h4>
+                    <ul>
+                        <li><a href="https://ums.lpu.in/lpuums/" target="_blank" rel="noopener">UMS Login</a></li>
+                        <li><a href="https://webapp.lpu.in/payment/" target="_blank" rel="noopener">Fee Deposits</a></li>
+                        <li><a href="https://www.lpu.in/academics/calendar-regular-programmes.php" target="_blank" rel="noopener">Academic Calendar</a></li>
+                        <li><a href="https://www.lpu.in/student-grievance-redressal.php" target="_blank" rel="noopener">Grievance Redressal</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Follow LPU</h4>
+                    <ul>
+                        <li><a href="https://www.instagram.com/lpuuniversity/" target="_blank" rel="noopener">Instagram</a></li>
+                        <li><a href="https://www.linkedin.com/company/lovely-professional-university" target="_blank" rel="noopener">LinkedIn</a></li>
+                        <li><a href="https://www.youtube.com/user/LPUuniversity" target="_blank" rel="noopener">YouTube</a></li>
+                        <li><a href="https://www.facebook.com/LPUUniversity" target="_blank" rel="noopener">Facebook</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>Campus Exchange is an independent student project. It is not an official Lovely Professional University website. LPU names, rankings and images belong to LPU; see <a href="https://www.lpu.in/" target="_blank" rel="noopener">lpu.in</a>.</span>
+                <span>References: lpu.in, UMS (ums.lpu.in), LPUTouch app. © 2026 Campus Exchange. Built for students, by students.</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
